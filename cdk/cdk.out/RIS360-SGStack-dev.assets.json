@@ -1,0 +1,20 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "0d8d0d7b68ffbe8ad91447c976fc2804ed7b14593632726d280716929f92913d": {
+      "displayName": "RIS360-SGStack-dev Template",
+      "source": {
+        "path": "RIS360-SGStack-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-4d091969": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "0d8d0d7b68ffbe8ad91447c976fc2804ed7b14593632726d280716929f92913d.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
