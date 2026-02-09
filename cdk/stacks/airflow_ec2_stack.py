@@ -34,9 +34,11 @@ class AirflowEC2Stack(Stack):
         )
 
         # 🔹 Custom AMI (replace with your AMI ID)
-        airflow_ami = ec2.MachineImage.generic_linux({
-            self.region: "ami-04133c6a3d20de55d"
-        })
+        airflow_ami = ec2.MachineImage.lookup(
+                name="ris-360-airflow-ami",
+                owners=["self"]
+        )
+
 
         # 🔹 EC2 Instance
         self.airflow_instance = ec2.Instance(
