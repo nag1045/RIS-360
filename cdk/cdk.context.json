@@ -1,0 +1,11 @@
+{
+  "availability-zones:account=467866449044:region=us-east-1": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ],
+  "ami:account=467866449044:filters.image-type.0=machine:filters.name.0=ris-360-airflow-ami:filters.state.0=available:owners.0=self:region=us-east-1": "ami-04133c6a3d20de55d"
+}

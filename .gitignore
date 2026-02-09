@@ -137,7 +137,9 @@ celerybeat.pid
 # Environments
 .env
 .envrc
-.venv
+.venv/
+.venv_ris360
+venv_ris360/
 env/
 venv/
 ENV/
@@ -206,3 +208,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# CDK generated files
+cdk.out/
