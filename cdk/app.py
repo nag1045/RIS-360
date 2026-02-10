@@ -7,6 +7,8 @@ from stacks.network_stack import NetworkStack
 from stacks.security_group_stack import SecurityGroupStack
 import requests
 from stacks.airflow_ec2_stack import AirflowEC2Stack
+from stacks.redshift_serverless_stack import RedshiftServerlessStack
+
 
 my_ip = requests.get("https://checkip.amazonaws.com").text.strip() + "/32"
 
@@ -53,5 +55,16 @@ S3Stack(
     env_name=env_name,
     env=aws_env,
 )
+
+
+redshift_stack = RedshiftServerlessStack(
+    app,
+    f"RIS360-RedshiftServerlessStack-{env_name}",
+    vpc=network_stack.vpc,
+    redshift_sg=sg_stack.redshift_sg,
+    env_name=env_name,
+    env=aws_env
+)
+
 
 app.synth()
