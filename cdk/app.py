@@ -28,6 +28,8 @@ iam_stack = IAMStack(
     app,
     f"RIS360-IAMStack-{env_name}",
     env_name=env_name,
+    github_org="nag1045",
+    github_repo="RIS-360",
     env=aws_env
 )
 
