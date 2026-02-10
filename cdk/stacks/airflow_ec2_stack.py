@@ -54,3 +54,10 @@ class AirflowEC2Stack(Stack):
             security_group=airflow_sg,
             role=self.ec2_role
         )
+        # Session manager access for EC2
+        self.ec2_role.add_managed_policy(
+            iam.ManagedPolicy.from_aws_managed_policy_name(
+            "AmazonSSMManagedInstanceCore"
+    )
+)
+
