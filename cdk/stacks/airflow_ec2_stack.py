@@ -35,10 +35,10 @@ class AirflowEC2Stack(Stack):
         self.ec2_role.add_to_policy(
     iam.PolicyStatement(
         actions=[
+            "glue:GetJob", 
             "glue:StartJobRun",
             "glue:StartJobRun",
-            "glue:GetJobRun",
-            "glue:GetJobRuns"
+            "glue:GetJobRun"
         ],
         resources=["*"]
     )
