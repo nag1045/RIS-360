@@ -32,6 +32,14 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::467866449044:role/ris-360-github-actions-role-dev
           aws-region: us-east-1
+            - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install AWS CDK CLI
+        run: |
+          npm install -g aws-cdk
 
       - name: CDK Bootstrap
         run: |
