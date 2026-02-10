@@ -36,6 +36,7 @@ class AirflowEC2Stack(Stack):
     iam.PolicyStatement(
         actions=[
             "glue:StartJobRun",
+            "glue:StartJobRun",
             "glue:GetJobRun",
             "glue:GetJobRuns"
         ],
