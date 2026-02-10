@@ -32,6 +32,26 @@ class AirflowEC2Stack(Stack):
                 "AmazonS3FullAccess"
             )
         )
+        self.ec2_role.add_to_policy(
+    iam.PolicyStatement(
+        actions=[
+            "glue:StartJobRun",
+            "glue:GetJobRun",
+            "glue:GetJobRuns"
+        ],
+        resources=["*"]
+    )
+)
+
+        self.ec2_role.add_to_policy(
+            iam.PolicyStatement(
+            actions=["iam:PassRole"],
+            resources=[
+                f"arn:aws:iam::{self.account}:role/ris-360-glue-role-{env_name}"
+        ]
+    )
+)
+
 
         # 🔹 Custom AMI (replace with your AMI ID)
         airflow_ami = ec2.MachineImage.lookup(
