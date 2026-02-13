@@ -2,6 +2,7 @@ import os
 import pandas as pd
 
 csv_folder = "D:\\RIS-360-DATA\\raw_csv"
+data_type_folder="D:\\RIS-360-DATA\\data_types"
 
 print("\n🔍 Starting CSV Validation...\n")
 
@@ -22,6 +23,9 @@ for file in os.listdir(csv_folder):
     # Data Types
     print("\nColumn Data Types:")
     print(df.dtypes)
+    data_type_path=os.path.join(data_type_folder,file.split('.')[0]+"_pandas_dtypes.csv")
+    df.dtypes.to_csv(data_type_path)
+
 
     # Null Percentage
     null_pct = (df.isnull().sum() / len(df)) * 100
