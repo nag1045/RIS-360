@@ -36,8 +36,59 @@ BENEFIT_GENERAL_SCHEMA = {
     "date": []
 }
 
+COLA_ACTUALS_SCHEMA = {
 
-# COLA_ACTUALS_SCHEMA = { ... }
+    "int": [
+        "equableclassid",
+        "actualyear"
+    ],
+
+    "float": [
+        "cola_amount_rsr",
+        "cola_actual"
+    ],
+
+    "boolean": [
+        "rsr_exclude",
+        "legacy_plan",
+        "compound_cola"
+    ],
+
+    "date": [
+        "cola_datepaid"
+    ]
+}
+
+FINANCE_ALLOCATIONS_SCHEMA = {
+
+    "int": [
+        "year"
+    ],
+
+    "float": [
+        "month",
+
+        "equityallocationactual",
+        "fixedincomeallocationactual",
+        "realestateallocationactual",
+        "altmiscallocationactual",
+        "privateequityallocationactual",
+        "hedgefundallocationactual",
+        "comdallocationactual",
+        "cashallocationactual",
+        "otherallocationactual",
+        "assetallocationtotal"
+    ],
+
+    "boolean": [
+        # None in this dataset
+    ],
+
+    "date": [
+        "datefye"
+    ]
+}
+
 
 # FINANCE_ALLOCATIONS_SCHEMA = { ... }
 

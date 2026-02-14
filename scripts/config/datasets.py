@@ -10,19 +10,25 @@ DATASETS = {
         "output": f"{STAGING_PATH}\\benefits_benefit_general_clean.parquet",
         "schema": schemas.BENEFIT_GENERAL_SCHEMA
     }
-    # ,
+    ,
 
-    # "benefits_cola_2022": {
-    #     "input": f"{RAW_PATH}\\Equable-Benefits-Database__COLA Actuals 2022.csv",
-    #     "output": f"{STAGING_PATH}\\benefits_cola_2022_clean.parquet",
-    #     "schema": schemas.COLA_ACTUALS_SCHEMA
-    # },
+    "benefits_cola_2022": {
+        "input": f"{RAW_PATH}\\Equable-Benefits-Database__COLA Actuals 2022.csv",
+        "output": f"{STAGING_PATH}\\benefits_cola_2022_clean.parquet",
+        "schema": schemas.COLA_ACTUALS_SCHEMA
+    },
 
-    # "benefits_cola_2023": {
-    #     "input": f"{RAW_PATH}\\Equable-Benefits-Database__COLA Actuals 2023.csv",
-    #     "output": f"{STAGING_PATH}\\benefits_cola_2023_clean.parquet",
-    #     "schema": schemas.COLA_ACTUALS_SCHEMA
-    # },
+    "benefits_cola_2023": {
+        "input": f"{RAW_PATH}\\Equable-Benefits-Database__COLA Actuals 2023.csv",
+        "output": f"{STAGING_PATH}\\benefits_cola_2023_clean.parquet",
+        "schema": schemas.COLA_ACTUALS_SCHEMA
+    },
+
+      "finance_database_allocations": {
+        "input": f"{RAW_PATH}\\Equable-Finance-Database-Allocations__Combined.csv",
+        "output": f"{STAGING_PATH}\\finance_database_allocations_clean.parquet",
+        "schema": schemas.FINANCE_ALLOCATIONS_SCHEMA
+    },
 
     # "finance_full": {
     #     "input": f"{RAW_PATH}\\Equable-Finance-Database-Full__Combined.csv",
