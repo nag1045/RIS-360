@@ -32,7 +32,14 @@ def process_dataset(name):
     df = enforce_schema(df, config["schema"])
 
     # Save to Parquet
-    df.to_parquet(config["output"], engine="pyarrow", index=False)
+    df.to_parquet(
+    config["output"],
+    engine="pyarrow",
+    index=False,
+    coerce_timestamps="ms",
+    allow_truncated_timestamps=True
+)
+
 
     print(f"✅ {name} processed successfully")
 
