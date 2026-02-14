@@ -89,6 +89,108 @@ FINANCE_ALLOCATIONS_SCHEMA = {
     ]
 }
 
+FINANCE_FULL_SCHEMA = {
+
+    "int": [
+        "year",
+
+        # population counts
+        "activemembertotal",
+        "inactivevestedmembers",
+        "inactivenonvested",
+        "beneficiariestotal",
+
+        # municipal flag (if 0/1)
+        "municipaltag"
+    ],
+
+    "float": [
+
+        # Month numeric
+        "month",
+
+        # Contribution rates / percentages
+        "mem_nc",
+        "mem_uaal",
+        "mem_tot",
+        "emp_nc",
+        "emp_uaal",
+        "emp_tot",
+        "nc_tot",
+        "uaal_tot",
+
+        "fundedratio_actuarial",
+        "fundedratio_gasb",
+        "fundedratio_mva",
+
+        "arr",
+        "discountrate",
+        "adecaspercentofcoveredpayroll",
+        "paidcontributionaspercentofcover",
+        "percentreqcontpaidcontpaidasper",
+        "payrollgrowthassumption",
+        "inflationassumption_gasb",
+
+        # Returns
+        "returns_1year",
+        "returns_3year",
+        "returns_5year",
+        "returns_10year",
+
+        # Allocations
+        "equityallocationactual",
+        "fixedincomeallocationactual",
+        "realestateallocationactual",
+        "altmiscallocationactual",
+        "privateequityallocationactual",
+        "hedgefundallocationactual",
+        "comdallocationactual",
+        "cashallocationactual",
+        "otherallocationactual",
+        "assetallocationtotal",
+
+        # Raw dollar financial measures
+        "ava",
+        "aal",
+        "uaal",
+        "mva",
+        "coveredpayroll_sfp",
+        "coveredpayroll_sec",
+        "activemembersalaries",
+        "tpl",
+        "fnp",
+        "npl",
+        "adec",
+        "requiredemployercontribution",
+        "paidemployercontribution",
+        "totalbenefits",
+        "retirementbenefits",
+        "stategenfundexpenditures",
+        "stateownsourceexpenditures",
+        "statetotalexpenditures",
+        "gdp",
+        "investmentexpense_scfnp",
+        "investmentexpenses",
+        "securitieslendingexpense_scfnp",
+
+        # Rollforward sometimes numeric
+        "rollforward",
+
+        # amort period numeric
+        "amortperiodr"
+    ],
+
+    "boolean": [
+       "municipaltag"
+    ],
+
+    "date": [
+        "actrptdate",
+        "datefye",
+        "returnasof"
+    ]
+}
+
 
 # FINANCE_ALLOCATIONS_SCHEMA = { ... }
 

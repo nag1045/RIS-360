@@ -9,7 +9,7 @@ def clean_numeric(series):
     )
     return pd.to_numeric(cleaned, errors='coerce')
 
-def clean_boolean(series, column_name=None):
+def clean_boolean(series,col):
 
     cleaned = (
         series.astype(str)
@@ -19,7 +19,6 @@ def clean_boolean(series, column_name=None):
 
     mapping = {
         # True values
-        'Yes': 1,
         'yes': 1,
         'y': 1,
         'true': 1,
@@ -30,14 +29,12 @@ def clean_boolean(series, column_name=None):
         'no': 0,
         'n': 0,
         'false': 0,
-        'No': 0,
         '0': 0,
         '0.0': 0,
 
         # Missing values
         'n/r': None,
         '-': None,
-        'N/R': None,
         '': None,
         'none': None,
         'nan': None
@@ -49,7 +46,7 @@ def clean_boolean(series, column_name=None):
     unexpected = cleaned[~cleaned.isin(mapping.keys()) & cleaned.notna()]
 
     if len(unexpected) > 0:
-        print(f"⚠ Unexpected boolean values in column '{column_name}':")
+        print(f"⚠ Unexpected boolean values in column '{col}':")
         print(unexpected.unique()[:10])
 
     return mapped.astype("Int64")
@@ -93,7 +90,7 @@ def enforce_schema(df, schema):
 
     for col in schema.get("boolean", []):
         if col in df.columns:
-            df[col] = clean_boolean(df[col])
+            df[col] = clean_boolean(df[col],col)
 
     for col in schema.get("date", []):
         if col in df.columns:

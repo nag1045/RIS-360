@@ -30,11 +30,11 @@ DATASETS = {
         "schema": schemas.FINANCE_ALLOCATIONS_SCHEMA
     },
 
-    # "finance_full": {
-    #     "input": f"{RAW_PATH}\\Equable-Finance-Database-Full__Combined.csv",
-    #     "output": f"{STAGING_PATH}\\finance_full_clean.parquet",
-    #     "schema": schemas.FINANCE_FULL_SCHEMA
-    # },
+    "finance_full": {
+        "input": f"{RAW_PATH}\\Equable-Finance-Database-Full__Combined.csv",
+        "output": f"{STAGING_PATH}\\finance_full_clean.parquet",
+        "schema": schemas.FINANCE_FULL_SCHEMA
+    },
 
     # "finance_investments": {
     #     "input": f"{RAW_PATH}\\Equable-Finance-Database-Investments__Combined.csv",
