@@ -9,19 +9,51 @@ def clean_numeric(series):
     )
     return pd.to_numeric(cleaned, errors='coerce')
 
+def clean_boolean(series, column_name=None):
 
-def clean_boolean(series):
     cleaned = (
         series.astype(str)
         .str.strip()
-        .replace({
-            'Yes': 1, 'No': 0,
-            'Y': 1, 'N': 0,
-            'N/R': None, 'n/r': None,
-            '-': None, '': None,
-            'nan': None, 'None': None
-        })
+        .str.lower()
     )
+
+    mapping = {
+        # True values
+        'Yes': 1,
+        'yes': 1,
+        'y': 1,
+        'true': 1,
+        '1': 1,
+        '1.0': 1,
+
+        # False values
+        'no': 0,
+        'n': 0,
+        'false': 0,
+        'No': 0,
+        '0': 0,
+        '0.0': 0,
+
+        # Missing values
+        'n/r': None,
+        '-': None,
+        'N/R': None,
+        '': None,
+        'none': None,
+        'nan': None
+    }
+
+    mapped = cleaned.map(mapping)
+
+    # Detect unexpected values
+    unexpected = cleaned[~cleaned.isin(mapping.keys()) & cleaned.notna()]
+
+    if len(unexpected) > 0:
+        print(f"⚠ Unexpected boolean values in column '{column_name}':")
+        print(unexpected.unique()[:10])
+
+    return mapped.astype("Int64")
+
     return pd.to_numeric(cleaned, errors='coerce').astype("Int64")
 
 def safe_int_cast(series, column_name):
