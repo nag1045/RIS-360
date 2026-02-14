@@ -36,21 +36,22 @@ DATASETS = {
         "schema": schemas.FINANCE_FULL_SCHEMA
     },
 
-    # "finance_investments": {
-    #     "input": f"{RAW_PATH}\\Equable-Finance-Database-Investments__Combined.csv",
-    #     "output": f"{STAGING_PATH}\\finance_investments_clean.parquet",
-    #     "schema": schemas.INVESTMENTS_SCHEMA
-    # },
+    "finance_investments": {
+        "input": f"{RAW_PATH}\\Equable-Finance-Database-Investments__Combined.csv",
+        "output": f"{STAGING_PATH}\\finance_investments_clean.parquet",
+        "schema": schemas.INVESTMENTS_SCHEMA
+    },
 
-    # "finance_contributions": {
-    #     "input": f"{RAW_PATH}\\Equable-Finance-Database-Contributions__Combined.csv",
-    #     "output": f"{STAGING_PATH}\\finance_contributions_clean.parquet",
-    #     "schema": schemas.CONTRIBUTIONS_SCHEMA
-    # },
 
-    # "unfunded_liabilities": {
-    #     "input": f"{RAW_PATH}\\Sources-of-Unfunded-Liabilities-Database__Gain Loss Data.csv",
-    #     "output": f"{STAGING_PATH}\\unfunded_liabilities_clean.parquet",
-    #     "schema": schemas.UNFUNDED_LIABILITIES_SCHEMA
-    # }
+    "finance_contributions": {
+        "input": f"{RAW_PATH}\\Equable-Finance-Database-Contributions__Combined.csv",
+        "output": f"{STAGING_PATH}\\finance_contributions_clean.parquet",
+        "schema": schemas.CONTRIBUTIONS_SCHEMA
+    },
+
+    "unfunded_liabilities": {
+        "input": f"{RAW_PATH}\\Sources-of-Unfunded-Liabilities-Database__Gain Loss Data.csv",
+        "output": f"{STAGING_PATH}\\unfunded_liabilities_clean.parquet",
+        "schema": schemas.UNFUNDED_LIABILITIES_SCHEMA
+    }
 }

@@ -191,14 +191,146 @@ FINANCE_FULL_SCHEMA = {
     ]
 }
 
+INVESTMENTS_SCHEMA = {
 
-# FINANCE_ALLOCATIONS_SCHEMA = { ... }
+    "int": [
+        "year"
+    ],
 
-# FINANCE_CONTRIBUTIONS_SCHEMA = { ... }
+    "float": [
+        # numeric month
+        "month",
 
-# FINANCE_FULL_SCHEMA = { ... }
+        # percentages
+        "arr",
+        "discountrate",
+        "returns_1year",
+        "returns_3year",
+        "returns_5year",
+        "returns_10year"
+    ],
 
-# FINANCE_INVESTMENTS_SCHEMA = { ... }
+    "boolean": [
+        # none
+    ],
 
+    "date": [
+        "datefye",
+        "returnasof"
+    ]
+}
 
-# UNFUNDED_LIABILITIES_SCHEMA = { ... }
+CONTRIBUTIONS_SCHEMA = {
+
+    "int": [
+        "year"
+    ],
+
+    "float": [
+        # numeric month
+        "month",
+
+        # raw dollar amounts
+        "adec",
+        "requiredemployercontribution",
+        "paidemployercontribution",
+
+        # percentage columns
+        "adecaspercentofcoveredpayroll",
+        "paidcontributionaspercentofcover",
+        "percentreqcontpaidcontpaidasper",
+        "mem_nc",
+        "mem_uaal",
+        "mem_tot",
+        "emp_nc",
+        "emp_uaal",
+        "emp_tot",
+        "nc_tot",
+        "uaal_tot"
+    ],
+
+    "boolean": [
+        # none
+    ],
+
+    "date": [
+        "datefye"
+    ]
+}
+
+UNFUNDED_LIABILITIES_SCHEMA = {
+
+    "int": [
+        "year"
+    ],
+
+    "float": [
+        # Assumptions
+        "arr",
+
+        # Core UAAL
+        "uaal",
+        "aggstart",
+        "aggtotal",
+        "aggundoc",
+        "agglegacy",
+        "agginterest",
+
+        # Aggregates
+        "agginvest",
+        "aggdemo",
+        "aggassume",
+        "aggbenefit",
+        "aggcont",
+        "aggother",
+
+        # Investment decomposition
+        "investexpnonaggregated",
+        "otherinvestmentrelated",
+        "generalunspecifiedassetgain",
+
+        # Demographic
+        "demographicexperiencepayroll",
+        "demographicexperiencemortalit",
+        "demographicexperienceturnover",
+        "demographicexperiencedisabili",
+
+        # Assumption changes
+        "assumedreturnchange",
+        "mortalityassumptionchange",
+        "payrollassumptionchange",
+        "otherspecifiedassumptioncha",
+        "otheractuarialmethodchange",
+        "generalunspecifiedassumption",
+
+        # Benefit & COLA changes
+        "benefitformulachange",
+        "colachange",
+        "colaexperience",
+        "servicepurchases",
+        "benefitexperience",
+        "generalunspecifiedbenefitde",
+
+        # Contribution experience
+        "contributiondeficiencysurplus",
+        "expectedchangeintheuaalint",
+        "changestofundingpolicy",
+
+        # Other
+        "generalunspecifiedactuarial",
+        "generalunspecifiedexperience",
+        "unspecifiedamendments",
+        "datacorrections",
+        "changeactuarialfirm",
+        "undeclaredother"
+    ],
+
+    "boolean": [
+        # none
+    ],
+
+    "date": [
+        # none
+    ]
+}
+
