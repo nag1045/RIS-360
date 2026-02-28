@@ -9,8 +9,6 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 
-# input_folder = "D:\\RIS-360-DATA\\staging\\"
-# output_folder = "D:\\RIS-360-DATA\\gold\\"
 
 input_folder = "/mnt/d/RIS-360-DATA/staging/"
 output_folder = "/mnt/d/RIS-360-DATA/gold/"
@@ -20,27 +18,11 @@ df_general = spark.read.parquet(input_folder+"benefits_benefit_general_clean.par
 from pyspark.sql.functions import lower
 df_general=df_general.withColumn('plan_type_normalized',lower('plan_type')) #Normalize Plan Type
 
-# COMMAND ----------
 
-# df_general.display()
-
-# COMMAND ----------
-
-# df_general.select('legacy_plan').show(5)
-# df_general.select('legacy_plan').printSchema
-
-# COMMAND ----------
 
 from pyspark.sql.functions import col
 df_general=df_general.withColumn('legacy_plan',col('legacy_plan').cast('boolean'))   #Standardize Binary Columns
 
-# COMMAND ----------
-
-# df_general.select('legacy_plan').show(5)
-
-# COMMAND ----------
-
-# df_general.select('legacy_plan').distinct().show(5)
 
 # COMMAND ----------
 
@@ -57,22 +39,18 @@ df_general=df_general.withColumn('max_employee_contribution_pct',greatest(
 ))   # Max Employee Contribution %
 
 
-# COMMAND ----------
 
-# df_general.select('max_employee_contribution_pct').show(5)
-
-# COMMAND ----------
 
 from pyspark.sql.functions import when,col
 df_general=df_general.withColumn('vesting_category',when(col('fas_vest')<=5,'Fast Vesting')\
                                          .when(col('fas_vest')<=10,'Moderate Vesting')\
                                          .otherwise('Slow Vesting'))      # Vesting Years Category
 
-# COMMAND ----------
+
 
 df_general.select('vesting_category').distinct().show()
 
-# COMMAND ----------
+
 
 df_general=df_general.withColumn('risk_score',(
                                     col('fas_additive_multipliers').cast('int')+ 
@@ -81,23 +59,10 @@ df_general=df_general.withColumn('risk_score',(
 )
                       )    # Risk Score for Plan
 
-# COMMAND ----------
 
-# df_general.select('risk_score').distinct().show()
-
-# COMMAND ----------
-
-# df_general.select('equable_class_id').count()
-
-# COMMAND ----------
 
 df_general=df_general.dropDuplicates(['equable_class_id'])
 
-# COMMAND ----------
-
-# df_general.select('equable_class_id').count()
-
-# COMMAND ----------
 
 
 from pyspark.sql.functions import expr
@@ -118,11 +83,6 @@ df_general_mul_flat = df_general.selectExpr(
 )
 
 
-# COMMAND ----------
-
-# df_general_mul_flat.display()
-
-# COMMAND ----------
 
 df_general.write.mode("overwrite") \
     .parquet(output_folder+"dim_plan_features")
