@@ -5,12 +5,12 @@ from aws_cdk import (
 )
 from constructs import Construct
 
-
 class S3Stack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, env_name: str, **kwargs):
         super().__init__(scope, construct_id, **kwargs)
 
+        # Data buckets
         bucket_configs = ["landing", "bronze", "silver", "gold"]
 
         for layer in bucket_configs:
@@ -24,3 +24,15 @@ class S3Stack(Stack):
                 removal_policy=RemovalPolicy.DESTROY if env_name != "prod" else RemovalPolicy.RETAIN,
                 auto_delete_objects=True if env_name != "prod" else False
             )
+
+        # Artifact bucket (for Glue scripts, EMR scripts, etc.)
+        self.artifact_bucket = s3.Bucket(
+            self,
+            "ArtifactsBucket",
+            bucket_name=f"ris-360-artifacts-{env_name}",
+            versioned=True,
+            encryption=s3.BucketEncryption.S3_MANAGED,
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            removal_policy=RemovalPolicy.DESTROY if env_name != "prod" else RemovalPolicy.RETAIN,
+            auto_delete_objects=True if env_name != "prod" else False
+        )
