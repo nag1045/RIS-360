@@ -1,0 +1,35 @@
+datasets:
+  Equable-Benefits-Database:
+    file: "Equable-Benefits-Database.xlsx"
+    sheets:
+      - Benefit General
+      - COLA Actuals 2022
+      - COLA Actuals 2023
+
+  Equable-Finance-Database-Allocations:
+    file: "Equable-Finance-Database-Allocations.xlsx"
+    sheets:
+      - Combined
+
+  Equable-Finance-Database-Contributions:
+    file: "Equable-Finance-Database-Contributions.xlsx"
+    sheets:
+      - Combined
+
+
+  Equable-Finance-Database-Full:
+    file: "Equable-Finance-Database-Full.xlsx"
+    sheets:
+      - Combined
+
+
+  Equable-Finance-Database-Investments:
+    file: "Equable-Finance-Database-Investments.xlsx"
+    sheets:
+      - Combined
+
+
+  Sources-of-Unfunded-Liabilities-Database:
+    file: "Sources-of-Unfunded-Liabilities-Database.xlsx"
+    sheets:
+      - Gain Loss Data
