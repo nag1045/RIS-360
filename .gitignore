@@ -216,3 +216,4 @@ __marimo__/
 
 # CDK generated files
 cdk.out/
+cdk/cdk.out/

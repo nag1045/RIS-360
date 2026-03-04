@@ -5,7 +5,11 @@ from aws_cdk import (
     aws_iam as iam,
 )
 from constructs import Construct
+import os
 
+glue_jobs_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../glue/jobs")
+)
 
 class GlueStack(Stack):
 
@@ -35,7 +39,7 @@ class GlueStack(Stack):
         s3deploy.BucketDeployment(
             self,
             "DeployGlueScripts",
-            sources=[s3deploy.Source.asset("../../glue/jobs/")],
+            sources=[s3deploy.Source.asset(glue_jobs_path)],
             destination_bucket=artifact_bucket,
             destination_key_prefix="glue/current"
         )
