@@ -9,7 +9,7 @@ import requests
 from stacks.airflow_ec2_stack import AirflowEC2Stack
 from stacks.redshift_serverless_stack import RedshiftServerlessStack
 from stacks.iam_stack import IAMStack
-
+from stacks.glue_stack import GlueStack
 
 
 my_ip = requests.get("https://checkip.amazonaws.com").text.strip() + "/32"
@@ -61,13 +61,20 @@ airflow_stack = AirflowEC2Stack(
 )
 
 
-S3Stack(
+s3_stack = S3Stack(
     app,
     f"RIS360-S3Stack-{env_name}",
     env_name=env_name,
     env=aws_env,
 )
 
+glue_stack = GlueStack(
+    app,
+    f"RIS360-GlueStack-{env_name}",
+    artifact_bucket=s3_stack.artifact_bucket,
+    env_name=env_name,
+    env=aws_env
+)
 
 redshift_stack = RedshiftServerlessStack(
     app,
