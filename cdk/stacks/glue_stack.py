@@ -35,7 +35,7 @@ class GlueStack(Stack):
         s3deploy.BucketDeployment(
             self,
             "DeployGlueScripts",
-            sources=[s3deploy.Source.asset("../glue_jobs")],
+            sources=[s3deploy.Source.asset("../../glue/jobs/")],
             destination_bucket=artifact_bucket,
             destination_key_prefix="glue/current"
         )
