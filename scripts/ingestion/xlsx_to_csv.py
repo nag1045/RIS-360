@@ -3,15 +3,15 @@ import os
 import yaml
 
 # Load YAML config
-dataset_config_folder="F:\\AWS Practice\\git-repos-nag1045\RIS-360\\configs"
+dataset_config_folder="/home/ubuntu/RIS-360/configs"
 config_file="dataset_config.yaml"
 yaml_file_path=os.path.join(dataset_config_folder, config_file)
 with open(yaml_file_path, "r") as f:
     config = yaml.safe_load(f)
 
 # Input and output folders
-input_folder = "D:\\RIS-360-DATA\\raw_xlsx"
-output_folder = "D:\\RIS-360-DATA\\raw_csv"
+input_folder = "s3://ris-360-landing-dev"
+output_folder = "s3://ris-360-bronze-dev"
 
 os.makedirs(output_folder, exist_ok=True)
 
