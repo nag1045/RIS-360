@@ -43,7 +43,7 @@ class GlueStack(Stack):
         # Allow Glue to read artifact bucket
         artifact_bucket.grant_read(glue_role)
 
-
+# this will make sure to move all the configs file to s3
         s3deploy.BucketDeployment(
             self,
             "DeployGlueScripts",
