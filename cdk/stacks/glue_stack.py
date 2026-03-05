@@ -61,6 +61,8 @@ class GlueStack(Stack):
             destination_key_prefix="glue/jobs/"
         )
 
+
+# this will make sure to move all the scripts file to s3
         s3deploy.BucketDeployment(
             self,
             "DeployScripts",
