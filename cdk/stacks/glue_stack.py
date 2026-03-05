@@ -46,7 +46,7 @@ class GlueStack(Stack):
 # this will make sure to move all the configs file to s3
         s3deploy.BucketDeployment(
             self,
-            "DeployGlueScripts",
+            "DeployConfigs",
             sources=[s3deploy.Source.asset(configs_path)],
             destination_bucket=artifact_bucket,
             destination_key_prefix="configs/"
@@ -63,7 +63,7 @@ class GlueStack(Stack):
 
         s3deploy.BucketDeployment(
             self,
-            "DeployGlueScripts",
+            "DeployScripts",
             sources=[s3deploy.Source.asset(scripts_path)],
             destination_bucket=artifact_bucket,
             destination_key_prefix="scripts/"
