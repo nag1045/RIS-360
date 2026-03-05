@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import yaml
+from move_processed_file import move_processed_file
 
 # Load YAML config
 dataset_config_folder="/home/ubuntu/RIS-360/configs"
@@ -10,7 +11,7 @@ with open(yaml_file_path, "r") as f:
     config = yaml.safe_load(f)
 
 # Input and output folders
-input_folder = "s3://ris-360-landing-dev"
+input_folder = "s3://ris-360-landing-dev/incoming"
 output_folder = "s3://ris-360-bronze-dev"
 
 os.makedirs(output_folder, exist_ok=True)
@@ -53,5 +54,7 @@ for dataset_name, dataset_info in config["datasets"].items():
         df.to_csv(output_path, index=False)
         
         print(f"✅ Converted: {output_file}")
+
+        move_processed_file(file_name)
 
 print("\nAll configured sheets processed.")
