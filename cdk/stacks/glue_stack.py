@@ -7,8 +7,16 @@ from aws_cdk import (
 from constructs import Construct
 import os
 
+configs_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../configs/")
+)
+
 glue_jobs_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../glue/jobs")
+)
+
+scripts_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../scripts/")
 )
 
 class GlueStack(Stack):
@@ -35,14 +43,32 @@ class GlueStack(Stack):
         # Allow Glue to read artifact bucket
         artifact_bucket.grant_read(glue_role)
 
+
+        s3deploy.BucketDeployment(
+            self,
+            "DeployGlueScripts",
+            sources=[s3deploy.Source.asset(configs_path)],
+            destination_bucket=artifact_bucket,
+            destination_key_prefix="configs/"
+        )
+
         # Upload glue_jobs folder to artifact bucket
         s3deploy.BucketDeployment(
             self,
             "DeployGlueScripts",
             sources=[s3deploy.Source.asset(glue_jobs_path)],
             destination_bucket=artifact_bucket,
-            destination_key_prefix="glue/current"
+            destination_key_prefix="glue/jobs/"
         )
+
+        s3deploy.BucketDeployment(
+            self,
+            "DeployGlueScripts",
+            sources=[s3deploy.Source.asset(scripts_path)],
+            destination_bucket=artifact_bucket,
+            destination_key_prefix="scripts/"
+        )
+
 
         # Example Glue Job
         glue.CfnJob(
