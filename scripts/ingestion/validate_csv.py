@@ -1,16 +1,23 @@
-import os
+import boto3
 import pandas as pd
 
-bronze_bucket = "s3://ris-360-bronze-dev"
-# data_type_folder="D:\\RIS-360-DATA\\data_types"
+bronze_bucket = "ris-360-bronze-dev"
+
+s3 = boto3.client("s3")
 
 print("\n🔍 Starting CSV Validation...\n")
 
-for file in os.listdir(bronze_bucket):
+response = s3.list_objects_v2(Bucket=bronze_bucket)
+
+for obj in response.get("Contents", []):
+
+    file = obj["Key"]
+
     if not file.endswith(".csv"):
         continue
 
-    file_path = os.path.join(bronze_bucket, file)
+    file_path = f"s3://{bronze_bucket}/{file}"
+
     print(f"\n📂 File: {file}")
     print("-" * 60)
 
@@ -23,9 +30,6 @@ for file in os.listdir(bronze_bucket):
     # Data Types
     print("\nColumn Data Types:")
     print(df.dtypes)
-    # data_type_path=os.path.join(data_type_folder,file.split('.')[0]+"_pandas_dtypes.csv")
-    # df.dtypes.to_csv(data_type_path)
-
 
     # Null Percentage
     null_pct = (df.isnull().sum() / len(df)) * 100

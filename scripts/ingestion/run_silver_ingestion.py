@@ -4,6 +4,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+
 from scripts.utils.schema_utils import enforce_schema
 from scripts.config.datasets import DATASETS
 
@@ -23,37 +24,43 @@ def process_dataset(name):
     print(f"📥 Input:  {config['input']}")
     print(f"📤 Output: {config['output']}")
 
-    # Read CSV
-    df = pd.read_csv(config["input"])
+    # Read CSV from S3
+    df = pd.read_csv(
+        config["input"],
+        storage_options={"anon": False}
+    )
 
     print(f"📊 Rows: {len(df)} | Columns: {len(df.columns)}")
 
     # Enforce schema
     df = enforce_schema(df, config["schema"])
 
-    # Save to Parquet
+    # Write Parquet to S3
     df.to_parquet(
-    config["output"],
-    engine="pyarrow",
-    index=False,
-    coerce_timestamps="ms",
-    allow_truncated_timestamps=True
-)
-
+        config["output"],
+        engine="pyarrow",
+        index=False,
+        coerce_timestamps="ms",
+        allow_truncated_timestamps=True,
+        storage_options={"anon": False}
+    )
 
     print(f"✅ {name} processed successfully")
 
 
 def run_all():
     print("\n🔁 Running ingestion for ALL datasets...\n")
+
     for dataset_name in DATASETS.keys():
         process_dataset(dataset_name)
+
     print("\n🎉 All datasets processed successfully")
 
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
+
     parser.add_argument(
         "--dataset",
         type=str,
