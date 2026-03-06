@@ -23,4 +23,13 @@ with DAG(
         bash_command="python3 /home/ubuntu/RIS-360/scripts/ingestion/xlsx_to_csv.py"
     )
 
-    convert_task
+    validate_task = BashOperator(
+        task_id="validate_csv",
+        bash_command="python3 /home/ubuntu/RIS-360/scripts/ingestion/validate_csv.py"
+    )
+
+    silver_task = BashOperator(
+        task_id="silver_ingestion",
+        bash_command="python3 /home/ubuntu/RIS-360/scripts/ingestion/run_silver_ingestion.py"
+    )
+    convert_task >> validate_task >> silver_task
