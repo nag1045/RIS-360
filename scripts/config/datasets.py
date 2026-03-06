@@ -9,7 +9,7 @@ DATASETS = {
     "benefits_benefit_general": {
         "input": f"{bronze_bucket}/Equable-Benefits-Database__Benefit General.csv",
         "output": f"{silver_bucket}/benefits_benefit_general_clean.parquet",
-        "schema": schemas.BENEFITS_BENEFIT_GENERAL_SCHEMA
+        "schema": schemas.BENEFIT_GENERAL_SCHEMA
     },
 
     "benefits_cola_2022": {
