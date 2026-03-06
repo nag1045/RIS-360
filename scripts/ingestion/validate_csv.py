@@ -1,16 +1,16 @@
 import os
 import pandas as pd
 
-csv_folder = "D:\\RIS-360-DATA\\raw_csv"
-data_type_folder="D:\\RIS-360-DATA\\data_types"
+bronze_bucket = "s3://ris-360-bronze-dev"
+# data_type_folder="D:\\RIS-360-DATA\\data_types"
 
 print("\n🔍 Starting CSV Validation...\n")
 
-for file in os.listdir(csv_folder):
+for file in os.listdir(bronze_bucket):
     if not file.endswith(".csv"):
         continue
 
-    file_path = os.path.join(csv_folder, file)
+    file_path = os.path.join(bronze_bucket, file)
     print(f"\n📂 File: {file}")
     print("-" * 60)
 
@@ -23,8 +23,8 @@ for file in os.listdir(csv_folder):
     # Data Types
     print("\nColumn Data Types:")
     print(df.dtypes)
-    data_type_path=os.path.join(data_type_folder,file.split('.')[0]+"_pandas_dtypes.csv")
-    df.dtypes.to_csv(data_type_path)
+    # data_type_path=os.path.join(data_type_folder,file.split('.')[0]+"_pandas_dtypes.csv")
+    # df.dtypes.to_csv(data_type_path)
 
 
     # Null Percentage
