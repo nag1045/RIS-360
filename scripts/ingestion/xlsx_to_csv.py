@@ -3,8 +3,9 @@ import os
 import yaml
 import logging
 from move_processed_file import move_processed_file
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+from airflow.utils.log.logging_mixin import LoggingMixin
+
+logger = LoggingMixin().log
 
 # Load YAML config
 dataset_config_folder="/home/ubuntu/RIS-360/configs"
@@ -26,7 +27,6 @@ for dataset_name, dataset_info in config["datasets"].items():
     allowed_sheets = dataset_info["sheets"]
 
     logger.info(f'dataset name for testing {dataset_name}') #testing
-    print(f'dataset name for testing {dataset_name}')
 
     logger.info(f'file name for testing {file_name}') #testing
     
