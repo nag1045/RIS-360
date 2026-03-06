@@ -4,6 +4,7 @@ import yaml
 import logging
 from move_processed_file import move_processed_file
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # Load YAML config
 dataset_config_folder="/home/ubuntu/RIS-360/configs"
