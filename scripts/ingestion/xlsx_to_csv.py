@@ -8,7 +8,7 @@ from airflow.utils.log.logging_mixin import LoggingMixin
 logger = LoggingMixin().log
 
 # Load YAML config
-dataset_config_folder="/home/ubuntu/RIS-360/scripts/configs"
+dataset_config_folder="/home/ubuntu/RIS-360/scripts/config"
 config_file="dataset_config.yaml"
 yaml_file_path=os.path.join(dataset_config_folder, config_file)
 with open(yaml_file_path, "r") as f:
