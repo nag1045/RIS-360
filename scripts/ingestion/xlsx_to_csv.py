@@ -1,7 +1,9 @@
 import pandas as pd
 import os
 import yaml
+import logging
 from move_processed_file import move_processed_file
+logger = logging.getLogger(__name__)
 
 # Load YAML config
 dataset_config_folder="/home/ubuntu/RIS-360/configs"
@@ -21,8 +23,14 @@ for dataset_name, dataset_info in config["datasets"].items():
     
     file_name = dataset_info["file"]
     allowed_sheets = dataset_info["sheets"]
+
+    logger.info(f'dataset name for testing {dataset_name}') #testing
+
+    logger.info(f'file name for testing {file_name}') #testing
     
     file_path = os.path.join(input_folder, file_name)
+
+    logger.info(f'file path for testing {file_path}') #testing
     
     print(f"\nProcessing dataset: {dataset_name}")
     
