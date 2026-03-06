@@ -25,6 +25,7 @@ for dataset_name, dataset_info in config["datasets"].items():
     allowed_sheets = dataset_info["sheets"]
 
     logger.info(f'dataset name for testing {dataset_name}') #testing
+    print()
 
     logger.info(f'file name for testing {file_name}') #testing
     
@@ -62,8 +63,7 @@ for dataset_name, dataset_info in config["datasets"].items():
         df.to_csv(output_path, index=False)
         
         print(f"✅ Converted: {output_file}")
-
+        move_processed_file(f"incoming/{file_name}")
         
 
 print("\nAll configured sheets processed.")
-move_processed_file(f"incoming/{file_name}")
