@@ -1,3 +1,52 @@
+import sys
+from pyspark.context import SparkContext
+from pyspark.sql.functions import col
+from awsglue.context import GlueContext
+
+# ----------------------------------
+# Initialize Glue + Spark
+# ----------------------------------
+
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+
+# ----------------------------------
+# Iceberg Catalog Configuration
+# ----------------------------------
+
+spark.conf.set(
+    "spark.sql.catalog.glue_catalog",
+    "org.apache.iceberg.spark.SparkCatalog"
+)
+
+spark.conf.set(
+    "spark.sql.catalog.glue_catalog.catalog-impl",
+    "org.apache.iceberg.aws.glue.GlueCatalog"
+)
+
+spark.conf.set(
+    "spark.sql.catalog.glue_catalog.io-impl",
+    "org.apache.iceberg.aws.s3.S3FileIO"
+)
+
+spark.conf.set(
+    "spark.sql.catalog.glue_catalog.warehouse",
+    "s3://ris-360-gold-dev/"
+)
+
+spark.conf.set(
+    "spark.sql.iceberg.write.spark.fanout.enabled",
+    "true"
+)
+
+spark.conf.set(
+    "spark.sql.iceberg.write.distribution-mode",
+    "hash"
+)
+
+
+
 # Databricks notebook source
 df_full=spark.read.parquet('/Volumes/workspace/ris_schema/ris360_data/finance_full_clean.parquet')
 
