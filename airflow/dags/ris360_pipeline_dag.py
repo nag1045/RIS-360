@@ -43,7 +43,7 @@ with DAG(
 
     convert_task = BashOperator(
         task_id="convert_xlsx_to_csv",
-        bash_command="python3 /home/ubuntu/RIS-360/scripts/ingestion/xlsx_to_csv.py"
+        bash_command="python3 /home/ubuntu/RIS-360/scripts/ingestion/xlsx_to_csv.py {{ run_id }}"
     )
 
     validate_task = BashOperator(
