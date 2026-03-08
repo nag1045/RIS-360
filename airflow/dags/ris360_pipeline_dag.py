@@ -4,11 +4,8 @@ from datetime import datetime, timedelta
 from airflow.providers.amazon.aws.operators.glue import GlueJobOperator
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-
-from utils.metadata_logger import log_pipeline_start, log_pipeline_end
-from utils.metadata_logger import log_pipeline_start, log_pipeline_end
+sys.path.insert(0, "/home/ubuntu/RIS-360")
+from scripts.utils.metadata_logger import log_pipeline_start, log_pipeline_end
 from airflow.operators.python import PythonOperator
 
 def start_logging(**context):
