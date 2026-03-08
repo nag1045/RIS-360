@@ -90,15 +90,7 @@ class GlueStack(Stack):
             "--job-bookmark-option": "job-bookmark-enable",
 
             # Iceberg support
-            "--datalake-formats": "iceberg",
-
-            # Spark Iceberg configs
-            "--conf": "spark.sql.catalog.glue_catalog=org.apache.iceberg.spark.SparkCatalog",
-            "--conf": "spark.sql.catalog.glue_catalog.catalog-impl=org.apache.iceberg.aws.glue.GlueCatalog",
-            "--conf": "spark.sql.catalog.glue_catalog.io-impl=org.apache.iceberg.aws.s3.S3FileIO",
-            "--conf": "spark.sql.catalog.glue_catalog.warehouse=s3://ris-360-gold-dev/warehouse/",
-            "--conf": "spark.sql.iceberg.write.spark.fanout.enabled=true",
-            "--conf": "spark.sql.iceberg.write.distribution-mode=hash"
+            "--datalake-formats": "iceberg"
     },
 
             max_retries=1,
