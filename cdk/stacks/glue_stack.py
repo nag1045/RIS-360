@@ -61,15 +61,36 @@ class GlueStack(Stack):
 
 
         # Example Glue Job
-        glue.CfnJob(
-            self,
-            "SilverJob",
-            role=glue_role.role_arn,
-            command=glue.CfnJob.JobCommandProperty(
-                name="glueetl",
-                script_location=f"s3://{artifact_bucket.bucket_name}/glue/current/silver.py"
-            ),
-            glue_version="4.0",
-            worker_type="G.1X",
-            number_of_workers=2
-        )
+glue.CfnJob(
+    self,
+    "GoldJobBenefitsGeneral",
+    name="ris360-benefits-general-gold-job",   # <-- explicit Glue job name
+    role=glue_role.role_arn,
+
+    command=glue.CfnJob.JobCommandProperty(
+        name="glueetl",
+        script_location=f"s3://{artifact_bucket.bucket_name}/glue/current/benefit_general_gold.py",
+        python_version="3"
+    ),
+
+    glue_version="4.0",
+
+    worker_type="G.1X",
+    number_of_workers=2,
+
+    execution_property=glue.CfnJob.ExecutionPropertyProperty(
+        max_concurrent_runs=1
+    ),
+
+    default_arguments={
+        "--job-language": "python",
+        "--TempDir": f"s3://{artifact_bucket.bucket_name}/temp/",
+        "--enable-continuous-cloudwatch-log": "true",
+        "--enable-metrics": "true",
+        "--enable-job-insights": "true",
+        "--job-bookmark-option": "job-bookmark-enable"
+    },
+
+    max_retries=1,
+    timeout=60
+)
