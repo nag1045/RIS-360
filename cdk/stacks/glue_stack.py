@@ -68,7 +68,7 @@ class GlueStack(Stack):
 
             command=glue.CfnJob.JobCommandProperty(
             name="glueetl",
-            script_location=f"s3://{artifact_bucket.bucket_name}/glue/current/benefit_general_gold.py",
+            script_location=f"s3://{artifact_bucket.bucket_name}/glue/jobs/benefit_general_gold.py",
             python_version="3"
          ),
 

@@ -6,7 +6,7 @@ from awsglue.context import GlueContext
 # ----------------------------------
 # Initialize Glue
 # ----------------------------------
-
+print('hello')
 sc = SparkContext()
 glueContext = GlueContext(sc)
 spark = glueContext.spark_session
