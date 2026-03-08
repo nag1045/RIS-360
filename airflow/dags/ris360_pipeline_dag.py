@@ -2,6 +2,18 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 from airflow.providers.amazon.aws.operators.glue import GlueJobOperator
+from utils.metadata_logger import log_pipeline_start, log_pipeline_end
+from airflow.operators.python import PythonOperator
+
+def start_logging(**context):
+
+    run_id = context['dag_run'].run_id
+    log_pipeline_start(run_id)
+
+def end_logging(**context):
+
+    run_id = context['dag_run'].run_id
+    log_pipeline_end(run_id, "SUCCESS")
 
 default_args = {
     "owner": "ris360",
@@ -18,6 +30,13 @@ with DAG(
     start_date=datetime(2025, 1, 1),
     catchup=False
 ) as dag:
+    
+
+    log_pipeline_start_task = PythonOperator(
+    task_id="log_pipeline_start",
+    python_callable=start_logging,
+    provide_context=True
+    )
 
     convert_task = BashOperator(
         task_id="convert_xlsx_to_csv",
@@ -85,6 +104,13 @@ with DAG(
     region_name="us-east-1",
     wait_for_completion=True
     )    
-    convert_task >> validate_task >> silver_task >> [gold_benefits_general,gold_cola_general,
+
+    log_pipeline_end_task = PythonOperator(
+    task_id="log_pipeline_end",
+    python_callable=end_logging,
+    provide_context=True
+    )
+
+    log_pipeline_start_task>>convert_task >> validate_task >> silver_task >> [gold_benefits_general,gold_cola_general,
                                                      gold_finance_investments,gold_finance_contributions,
-                                                     gold_unfunded_liabilities,gold_finance_full]
+                                                     gold_unfunded_liabilities,gold_finance_full] >>log_pipeline_end_task
