@@ -26,9 +26,9 @@ default_args = {
 }
 
 with DAG(
-    dag_id="xlsx_to_csv_pipeline",
+    dag_id="ris360_pipeline_dag",
     default_args=default_args,
-    description="Convert XLSX from ingestion bucket to CSV bronze bucket",
+    description="It will process RIS data from RAW to GOLD",
     schedule_interval="@daily",
     start_date=datetime(2025, 1, 1),
     catchup=False
