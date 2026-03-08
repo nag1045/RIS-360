@@ -15,6 +15,7 @@ class RedshiftServerlessStack(Stack):
         vpc: ec2.Vpc,
         redshift_sg: ec2.SecurityGroup,
         env_name: str,
+        redshift_role,
         **kwargs
     ):
         super().__init__(scope, construct_id, **kwargs)
@@ -24,9 +25,10 @@ class RedshiftServerlessStack(Stack):
             self,
             "RIS360RedshiftNamespace",
             namespace_name=f"ris360-namespace-{env_name}",
-            db_name="analytics",
+            db_name="ris_360_analytics",
             admin_username="admin",
-            admin_user_password="ChangeMe123!"  # 🔐 we’ll improve this next
+            admin_user_password="ChangeMe123!" , # 🔐 we’ll improve this next
+             iam_roles=[redshift_role.role_arn]
         )
 
         # 🔹 Workgroup (compute + networking)

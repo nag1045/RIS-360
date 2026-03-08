@@ -83,7 +83,8 @@ redshift_stack = RedshiftServerlessStack(
     vpc=network_stack.vpc,
     redshift_sg=sg_stack.redshift_sg,
     env_name=env_name,
-    env=aws_env
+    env=aws_env,
+    redshift_role=iam_stack.redshift_role
 )
 
 

@@ -62,3 +62,34 @@ class IAMStack(Stack):
                 )
             ]
         )
+
+        # 🔹 Redshift Spectrum Role
+        self.redshift_role = iam.Role(
+            self,
+            "RedshiftSpectrumRole",
+            role_name=f"ris360-redshift-role-{env_name}",
+            assumed_by=iam.ServicePrincipal("redshift.amazonaws.com")
+        )
+
+        self.redshift_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=[
+                    "glue:GetDatabase",
+                    "glue:GetDatabases",
+                    "glue:GetTable",
+                    "glue:GetTables",
+                    "glue:GetPartitions"
+                ],
+                resources=["*"]
+            )
+        )
+
+        self.redshift_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=[
+                    "s3:GetObject",
+                    "s3:ListBucket"
+                ],
+                resources=["*"]
+            )
+        )
