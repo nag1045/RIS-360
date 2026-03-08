@@ -1,0 +1,25 @@
+jobs:
+
+  - id: GoldJobBenefitsGeneral
+    name: ris360-benefits-general-gold-job
+    script: benefit_general_gold.py
+
+  - id: GoldJobBenefitsCola
+    name: ris360-benefits-cola-gold-job
+    script: benefits_cola_gold.py
+
+  - id: GoldJobFinanceContributions
+    name: ris360-finance-contributions-gold-job
+    script: finance_contributions_gold.py
+
+  - id: GoldJobFinanceFull
+    name: ris360-finance-full-gold-job
+    script: finance_full_gold.py
+
+  - id: GoldJobFinanceInvestments
+    name: ris360-finance-investments-gold-job
+    script: finance_investments_gold.py
+
+  - id: GoldJobUnfundedLiabilities
+    name: ris360-unfunded-liabilities-gold-job
+    script: unfunded_liabilities_gold.py

@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_iam as iam,
 )
 from constructs import Construct
+import yaml
 import os
 
 glue_jobs_path = os.path.abspath(
@@ -15,6 +16,12 @@ scripts_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../scripts/")
 )
 
+glue_job_config_path = os.path.join(
+    os.path.dirname(__file__),
+    "../../scripts/config/glue_jobs.yaml"
+)
+
+
 class GlueStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str,
@@ -23,18 +30,6 @@ class GlueStack(Stack):
                  **kwargs):
         super().__init__(scope, construct_id, **kwargs)
 
-        # # Glue role
-        # glue_role = iam.Role(
-        #     self,
-        #     "GlueRole",
-        #     assumed_by=iam.ServicePrincipal("glue.amazonaws.com")
-        # )
-
-        # glue_role.add_managed_policy(
-        #     iam.ManagedPolicy.from_aws_managed_policy_name(
-        #         "service-role/AWSGlueServiceRole"
-        #     )
-        # )
 
         # Allow Glue to read artifact bucket
         artifact_bucket.grant_read(glue_role)
@@ -58,41 +53,36 @@ class GlueStack(Stack):
             destination_key_prefix="scripts/"
         )
 
+        with open(glue_job_config_path) as f: #opening the glue job details yaml file
+            job_config = yaml.safe_load(f)
 
-        # Example Glue Job
-        glue.CfnJob(
-            self,
-            "GoldJobBenefitsGeneral",
-            name="ris360-benefits-general-gold-job",   # <-- explicit Glue job name
-            role=glue_role.role_arn,
+        for job in job_config["jobs"]: #this will make all the required glue job at once 
 
-            command=glue.CfnJob.JobCommandProperty(
-            name="glueetl",
-            script_location=f"s3://{artifact_bucket.bucket_name}/glue/jobs/benefit_general_gold.py",
-            python_version="3"
-         ),
+            glue.CfnJob(
+                self,
+                job["id"],
 
-            glue_version="4.0",
+                name=job["name"],
 
-            worker_type="G.1X",
-            number_of_workers=2,
+                role=glue_role.role_arn,
 
-        execution_property=glue.CfnJob.ExecutionPropertyProperty(
-        max_concurrent_runs=1
-    ),
+                command=glue.CfnJob.JobCommandProperty(
+                    name="glueetl",
+                    script_location=f"s3://{artifact_bucket.bucket_name}/glue/jobs/{job['script']}",
+                    python_version="3"
+                ),
 
-        default_arguments={
-            "--job-language": "python",
-            "--TempDir": f"s3://{artifact_bucket.bucket_name}/temp/",
-            "--enable-continuous-cloudwatch-log": "true",
-            "--enable-metrics": "true",
-            "--enable-job-insights": "true",
-            "--job-bookmark-option": "job-bookmark-enable",
+                glue_version="4.0",
+                worker_type="G.1X",
+                number_of_workers=2,
 
-            # Iceberg support
-            "--datalake-formats": "iceberg"
-    },
-
-            max_retries=1,
-            timeout=60
-)
+                default_arguments={
+                    "--job-language": "python",
+                    "--TempDir": f"s3://{artifact_bucket.bucket_name}/temp/",
+                    "--enable-continuous-cloudwatch-log": "true",
+                    "--enable-metrics": "true",
+                    "--enable-job-insights": "true",
+                    "--job-bookmark-option": "job-bookmark-enable",
+                    "--datalake-formats": "iceberg"
+        }
+    )
