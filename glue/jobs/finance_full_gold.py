@@ -34,7 +34,7 @@ spark.conf.set(
 
 spark.conf.set(
     "spark.sql.catalog.glue_catalog.warehouse",
-    "s3://ris-360-gold-dev/"
+    "s3://ris-360-gold-dev/warehouse/"
 )
 
 spark.conf.set(
