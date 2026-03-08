@@ -4,14 +4,19 @@ import yaml
 import logging
 import sys
 sys.path.insert(0, "/home/ubuntu/RIS-360")
+
 from move_processed_file import move_processed_file
 from scripts.utils.metadata_logger import is_file_processed, log_file_status
 from airflow.utils.log.logging_mixin import LoggingMixin
 import boto3
+
 logger = LoggingMixin().log
 
 #################################################################################################
+
 run_id = sys.argv[1]
+
+processed_any_file = False   # <-- track if any file was actually processed
 
 s3 = boto3.client("s3")
 
@@ -54,6 +59,8 @@ for obj in files:
         )
 
         continue
+
+    processed_any_file = True   # <-- mark that we processed at least one file
 
     # ---------------------------
     # Process file
@@ -115,5 +122,13 @@ for obj in files:
         len(df),
         run_id
     )
+
+
+# ---------------------------
+# If nothing processed → skip downstream tasks
+# ---------------------------
+if not processed_any_file:
+    print("No new files found. Skipping pipeline.")
+    sys.exit(99)
 
 print("\nAll configured sheets processed.")
