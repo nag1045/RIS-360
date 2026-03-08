@@ -23,7 +23,11 @@ class RedshiftServerlessStack(Stack):
         # 🔹 Namespace (database + users)
         self.namespace = redshift.CfnNamespace(
             self,
+<<<<<<< HEAD
             "RIS360RedshiftNamespace",
+=======
+            "RIS360RedshiftNs",
+>>>>>>> main
             namespace_name=f"ris360-ns-{env_name}",
             db_name="ris_360_analytics",
             admin_username="admin",
@@ -34,7 +38,11 @@ class RedshiftServerlessStack(Stack):
         # 🔹 Workgroup (compute + networking)
         self.workgroup = redshift.CfnWorkgroup(
             self,
+<<<<<<< HEAD
             "RIS360RedshiftWorkgroup",
+=======
+            "RIS360RedshiftWg",
+>>>>>>> main
             workgroup_name=f"ris360-wg-{env_name}",
             namespace_name=self.namespace.namespace_name,
             base_capacity=32,  # RPUs (can start small)
