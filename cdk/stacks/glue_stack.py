@@ -87,7 +87,7 @@ class GlueStack(Stack):
             "--enable-continuous-cloudwatch-log": "true",
             "--enable-metrics": "true",
             "--enable-job-insights": "true",
-            "--job-bookmark-option": "job-bookmark-enable"
+            "--job-bookmark-option": "job-bookmark-enable",
 
             # Iceberg support
             "--datalake-formats": "iceberg",
