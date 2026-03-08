@@ -38,6 +38,7 @@ with DAG(
     task_id="gold_benefits_general",
     job_name="ris360-benefits-general-gold-job",
     aws_conn_id="aws_default",
+    region_name="us-east-1",
     wait_for_completion=True
     )
 
