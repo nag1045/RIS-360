@@ -27,7 +27,7 @@ class RedshiftServerlessStack(Stack):
             namespace_name=f"ris360-namespace-{env_name}",
             db_name="ris_360_analytics",
             admin_username="admin",
-            admin_user_password="ChangeMe123!" , # 🔐 we’ll improve this next
+            admin_user_password="ChangeMe123!" , # 🔐 use secret manager
              iam_roles=[redshift_role.role_arn]
         )
 
