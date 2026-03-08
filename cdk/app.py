@@ -72,6 +72,7 @@ glue_stack = GlueStack(
     app,
     f"RIS360-GlueStack-{env_name}",
     artifact_bucket=s3_stack.artifact_bucket,
+    glue_role=iam_stack.glue_role,
     env_name=env_name,
     env=aws_env
 )

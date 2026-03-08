@@ -11,7 +11,7 @@ class S3Stack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Data buckets
-        bucket_configs = ["landing", "bronze", "silver", "gold"]
+        bucket_configs = ["landing", "bronze", "silver", "gold","athena"]
 
         for layer in bucket_configs:
             s3.Bucket(
