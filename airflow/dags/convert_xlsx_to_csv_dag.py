@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
+from airflow.providers.amazon.aws.operators.glue import GlueJobOperator
 
 default_args = {
     "owner": "ris360",
@@ -32,4 +33,21 @@ with DAG(
         task_id="silver_ingestion",
         bash_command="python3 /home/ubuntu/RIS-360/scripts/ingestion/run_silver_ingestion.py"
     )
-    convert_task >> validate_task >> silver_task
+
+    gold_benefits_general = GlueJobOperator(
+    task_id="gold_benefits_general",
+    job_name="ris360-benefits-general-gold-job",
+    aws_conn_id="aws_default",
+    wait_for_completion=True
+    )
+
+    gold_cola_general = GlueJobOperator(
+    task_id="gold_cola_general",
+    job_name="ris360-benefits-cola-gold-job",
+    aws_conn_id="aws_default",
+    wait_for_completion=True
+    )
+
+
+
+    convert_task >> validate_task >> silver_task >> [gold_benefits_general,gold_cola_general]
