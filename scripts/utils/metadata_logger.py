@@ -1,9 +1,11 @@
 import redshift_connector
 
+
 def get_connection():
 
     conn = redshift_connector.connect(
-        host="ris360-wg-dev.467866449044.us-east-1.redshift-serverless.amazonaws.com:5439/ris_360_analytics",
+        host="ris360-wg-dev.467866449044.us-east-1.redshift-serverless.amazonaws.com",
+        port=5439,
         database="ris_360_analytics",
         user="admin",
         password="ChangeMe123!"
@@ -27,6 +29,9 @@ def log_pipeline_start(run_id):
     cursor.execute(query)
     conn.commit()
 
+    cursor.close()
+    conn.close()
+
 
 def log_pipeline_end(run_id, status):
 
@@ -42,3 +47,6 @@ def log_pipeline_end(run_id, status):
 
     cursor.execute(query)
     conn.commit()
+
+    cursor.close()
+    conn.close()
