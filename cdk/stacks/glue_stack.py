@@ -5,7 +5,6 @@ from aws_cdk import (
     aws_iam as iam,
 )
 from constructs import Construct
-from iam_stack import IAMStack
 import os
 
 glue_jobs_path = os.path.abspath(
