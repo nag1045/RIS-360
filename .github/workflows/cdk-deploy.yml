@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "cdk/**"
-      - - ".github/workflows/**"
+      - ".github/workflows/**"
       
 permissions:
   id-token: write
