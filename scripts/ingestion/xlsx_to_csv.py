@@ -2,10 +2,11 @@ import pandas as pd
 import os
 import yaml
 import logging
+import sys
+sys.path.insert(0, "/home/ubuntu/RIS-360")
 from move_processed_file import move_processed_file
 from scripts.utils.metadata_logger import is_file_processed, log_file_status
 from airflow.utils.log.logging_mixin import LoggingMixin
-import sys
 import boto3
 logger = LoggingMixin().log
 
