@@ -51,5 +51,40 @@ with DAG(
     )
 
 
+    gold_finance_investments = GlueJobOperator(
+    task_id="gold_finance_investments",
+    job_name="ris360-finance-investments-gold-job",
+    aws_conn_id="aws_default",
+    region_name="us-east-1",
+    wait_for_completion=True
+    )
 
-    convert_task >> validate_task >> silver_task >> [gold_benefits_general,gold_cola_general]
+
+    gold_finance_contributions = GlueJobOperator(
+    task_id="gold_finance_contributions",
+    job_name="ris360-finance-contributions-gold-job",
+    aws_conn_id="aws_default",
+    region_name="us-east-1",
+    wait_for_completion=True
+    )
+
+
+    gold_unfunded_liabilities = GlueJobOperator(
+    task_id="gold_unfunded_liabilities",
+    job_name="ris360-unfunded-liabilities-gold-job",
+    aws_conn_id="aws_default",
+    region_name="us-east-1",
+    wait_for_completion=True
+    )    
+
+
+    gold_finance_full = GlueJobOperator(
+    task_id="gold_finance_full",
+    job_name="ris360-finance-full-gold-job",
+    aws_conn_id="aws_default",
+    region_name="us-east-1",
+    wait_for_completion=True
+    )    
+    convert_task >> validate_task >> silver_task >> [gold_benefits_general,gold_cola_general,
+                                                     gold_finance_investments,gold_finance_contributions,
+                                                     gold_unfunded_liabilities,gold_finance_full]
