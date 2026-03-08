@@ -24,7 +24,7 @@ class RedshiftServerlessStack(Stack):
         self.namespace = redshift.CfnNamespace(
             self,
             "RIS360RedshiftNs",
-            namespace_name=f"ris360-namespace-{env_name}",
+            namespace_name=f"ris360-ns-{env_name}",
             db_name="ris_360_analytics",
             admin_username="admin",
             admin_user_password="ChangeMe123!" , # 🔐 use secret manager
@@ -35,7 +35,7 @@ class RedshiftServerlessStack(Stack):
         self.workgroup = redshift.CfnWorkgroup(
             self,
             "RIS360RedshiftWg",
-            workgroup_name=f"ris360-workgroup-{env_name}",
+            workgroup_name=f"ris360-wg-{env_name}",
             namespace_name=self.namespace.namespace_name,
             base_capacity=32,  # RPUs (can start small)
             subnet_ids=[subnet.subnet_id for subnet in vpc.private_subnets],
